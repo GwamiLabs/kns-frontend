@@ -1,86 +1,100 @@
 <template>
-  <div class="container text-center">
-    <h1 class="mt-5">Mint Your .klima Domain!</h1>
-
-    <div class="d-flex justify-content-center domain-input-container">
-      <div class="input-group domain-input input-group-lg">
-        <input
-          v-model="chosenDomainName" 
-          placeholder="enter domain name"
-          type="text" 
-          class="form-control text-end" 
-          aria-label="Text input with dropdown button"
-        >
-
-        <span class="input-group-text tld-addon">
-          <span v-if="loading" class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span>
-          <span>.klima</span>
-        </span>
+  <div class="d-flex flex-row-wrap overall-container">
+    <div class="box-main">
+      <div class="lede lede-text">
+        Mint your own .klima domain
       </div>
-    </div>
-
-    <p>
-      <small @click="showRetMsg" class="ret-msg">Optional: Add short message for Klima Love Letters</small>
-    </p>
-    
-    <div v-if="showRetMsgInput" class="d-flex justify-content-center">
-      <div class="input-group mb-3 domain-input input-group-lg">
-        <input
-          v-model="retirementMessage"
-          maxlength="100" 
-          placeholder="This message will show up on the Klima Love Letters website"
-          type="text" 
-          class="form-control text-start"
-        >
+      <div class = "lede lede-subtitle">
+        Each domain comes with a percentage of retired offset carbon
       </div>
+      <div class="lede headline-price">
+        {{getWrapperTldPrice}} USDC per domain
+      </div>
+      <div class="lights">
+        <a class="icons" href="" target="_blank"><i class="bi bi-journal-text"></i></a>
+        <a class="icons" target="_blank" href="https://github.com/GwamiLabs"><i class="bi bi-github"></i></a>
+        <a class="icons" target="_blank" href="https://discord.gg/gwamilabs"><i class="bi bi-discord"></i></a>
+        <a class="icons" target="_blank" href="https://twitter.com/gwamilabs"><i class="bi bi-twitter"></i></a>
+      </div>
+
+          <div class="input-group domain-input input-group-lg">
+            <input
+              v-model="chosenDomainName" 
+              placeholder="enter domain name"
+              type="text" 
+              class="form-control text-end" 
+              aria-label="Text input with dropdown button"
+            >
+            <span class="input-group-text tld-addon">
+              <span v-if="loading" class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span>
+              <span>.klima</span>
+            </span>
+          </div>
+          <div class="input-group domain-input-textarea input-group-lg">
+            <textarea
+              v-model="retirementMessage"
+              maxlength="500" 
+              placeholder=
+"Additional perk:
+Write a love letter to the planet while retiring your carbon offsets here
+(max 500 characters)"
+              type="text" 
+              rows="3"
+              class="form-control text-start"
+            ></textarea>
+          </div>
+
+        <p class="error">
+          <small v-if="buyNotValid(chosenDomainName).invalid">
+            <em>{{ buyNotValid(chosenDomainName).message }}</em>
+          </small>
+        </p>
+
+        <!-- Wrapper contract paused -->
+        <button v-if="isActivated && getWrapperPaused" class="btn btn-primary buy-button" :disabled="true">
+          <span v-if="getWrapperPaused">Buying paused</span>
+        </button>
+
+        <!-- Too low USDC balance -->
+        <button v-if="isActivated && isNetworkSupported && !getWrapperPaused && !hasUserEnoughUsdc" class="btn btn-primary buy-button" @click="approveUsdc" :disabled="waiting || buyNotValid(chosenDomainName).invalid || !hasUserEnoughUsdc">
+          <span>Your USDC balance is too low</span>
+        </button>
+
+        <!-- Approve USDC -->
+        <button data-bs-toggle="modal" data-bs-target="#approveUsdcModal" v-if="isActivated && isNetworkSupported && !getWrapperPaused && !hasEnoughUsdcAllowance && hasUserEnoughUsdc" class="btn btn-primary buy-button" :disabled="waiting || buyNotValid(chosenDomainName).invalid || !hasUserEnoughUsdc">
+          <span v-if="waiting" class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span>
+          <span>Approve USDC</span>
+        </button>
+
+        <!-- Buy domain -->
+        <button v-if="isActivated && isNetworkSupported && !getWrapperPaused && hasEnoughUsdcAllowance && hasUserEnoughUsdc" class="btn btn-primary buy-button" @click="buyDomain" :disabled="waiting || buyNotValid(chosenDomainName).invalid || !hasUserEnoughUsdc">
+          <span v-if="waiting" class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span>
+          <span>Buy domain</span>
+        </button>
+
+        <!-- Connect Wallet -->
+        <button v-if="!isActivated" class="btn btn-primary buy-button" @click="open">Connect wallet</button>
+
+        <div v-if="isActivated && !isNetworkSupported" class="buy-button">
+          <button class="btn btn-primary buy-button" @click="changeNetwork('Polygon')">Switch to Polygon</button>
+        </div>
+      <!--use this in production: tough in testing to be so strict
+        <div v-if="isActivated && isNetworkSupported && 
+            !getWrapperPaused && !hasEnoughUsdcAllowance && 
+            hasUserEnoughUsdc" class="mint-warning">
+        -->
+        <div v-if="isActivated && isNetworkSupported" class="mint-warning">     
+            <span>Important: Before minting, remember to complete 2 transactions.</span>
+            <br><span>1. Approve</span>
+            <br><span>2. Buy Domain</span>
+        </div>
+        <Referral v-if="isActivated" />
     </div>
-
-    <p class="error">
-      <small v-if="buyNotValid(chosenDomainName).invalid">
-        <em>{{ buyNotValid(chosenDomainName).message }}</em>
-      </small>
-    </p>
-
-    <p class="mt-5">
-      Domain price: {{getWrapperTldPrice}} USDC
-    </p>
-
-    <!-- Wrapper contract paused -->
-    <button v-if="isActivated && getWrapperPaused" class="btn btn-primary btn-lg mt-3 buy-button" :disabled="true">
-      <span v-if="getWrapperPaused">Buying paused</span>
-    </button>
-
-    <!-- Too low USDC balance -->
-    <button v-if="isActivated && isNetworkSupported && !getWrapperPaused && !hasUserEnoughUsdc" class="btn btn-primary btn-lg mt-3 buy-button" @click="approveUsdc" :disabled="waiting || buyNotValid(chosenDomainName).invalid || !hasUserEnoughUsdc">
-      <span>Your USDC balance is too low</span>
-    </button>
-
-    <!-- Approve USDC -->
-    <button data-bs-toggle="modal" data-bs-target="#approveUsdcModal" v-if="isActivated && isNetworkSupported && !getWrapperPaused && !hasEnoughUsdcAllowance && hasUserEnoughUsdc" class="btn btn-primary btn-lg mt-3 buy-button" :disabled="waiting || buyNotValid(chosenDomainName).invalid || !hasUserEnoughUsdc">
-      <span v-if="waiting" class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span>
-      <span>Approve USDC</span>
-    </button>
-
-    <p v-if="isActivated && isNetworkSupported && !getWrapperPaused && !hasEnoughUsdcAllowance && hasUserEnoughUsdc" class="mt-1">
-      <small><strong>Important:</strong> You will need to complete 2 transactions: Approve USDC + Buy Domain.</small>
-    </p>
-
-    <!-- Buy domain -->
-    <button v-if="isActivated && isNetworkSupported && !getWrapperPaused && hasEnoughUsdcAllowance && hasUserEnoughUsdc" class="btn btn-primary btn-lg mt-3 buy-button" @click="buyDomain" :disabled="waiting || buyNotValid(chosenDomainName).invalid || !hasUserEnoughUsdc">
-      <span v-if="waiting" class="spinner-border spinner-border-sm mx-1" role="status" aria-hidden="true"></span>
-      <span>Buy domain</span>
-    </button>
-
-    <!-- Connect Wallet -->
-    <button v-if="!isActivated" class="btn btn-primary btn-lg mt-3 buy-button" @click="open">Connect wallet</button>
-
-    <div v-if="isActivated && !isNetworkSupported" class="mt-4 buy-button">
-      <button class="btn btn-primary btn-lg" @click="changeNetwork('Polygon')">Switch to Polygon</button>
+    <div class="dropdown-spacer">
     </div>
-    
   </div>
 
-  <Referral v-if="isActivated" />
+  
 
 
   <!-- Approve USDC Modal -->
@@ -141,7 +155,6 @@ export default {
       chosenAllowance: null,
       loading: false, // loading data
       retirementMessage: null,
-      showRetMsgInput: false,
       waiting: false, // waiting for TX to complete
       wrapperContract: null
     }
@@ -351,10 +364,6 @@ export default {
         method: networkData.method, 
         params: networkData.params
       });
-    },
-
-    showRetMsg() {
-      this.showRetMsgInput = true;
     }
   },
 
@@ -371,17 +380,88 @@ export default {
 </script>
 
 <style scoped>
+
+.overall-container>*{
+  padding: 10px;
+  margin:10px;
+  flex: 1 100%;
+  border-radius: 13px;
+}
+
+.lights {
+  margin-top:20px;
+  float:left;
+  width: 100%;
+}
+
+.bi {
+  margin-inline: 5px;
+  font-size: 28px;
+  padding: 5px;
+  color: #2B2B2B;
+}
+
+.box-left {
+  margin-left:55px;
+  width:340px;
+}
+.box-main {
+  margin-left:55px;
+  display: flex;
+  margin-right: 224px;
+  flex-flow:row;
+}
+
+
+.lede-text {
+  order:1;
+  color: #232B2B;
+  font-size:80px;
+  font-weight: 400;
+}
+.lede-subtitle {
+  order:3;
+  color: #a1a1a1;
+  font-size:24px;
+  font-weight: normal;
+}
+.headline-price {
+  order:3;
+  font-size:24px;
+  font-weight: bold;
+}
+.mint-warning {
+  order:2;
+  padding-left: 10%;;
+  color: #232B2B;
+  font-size:16px;
+  font-weight: 400;
+}
+
+
 .buy-button {
-  margin-bottom: 50px;
+  order:2;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 24px;
+  height: 72px;
+  width: 100%;
 }
 
 .domain-input {
-  width: 50%;
+  order:2;
+  height:72px;
+  border-radius: 13px;
 }
 
-.domain-input-container {
-  margin-top: 80px;
+.domain-input-textarea {
+  order:2;
+  margin-top: 10px;
+  height: 138px;
+  border-radius: 13px;
 }
+
 
 .error {
   color: #DBDFEA;

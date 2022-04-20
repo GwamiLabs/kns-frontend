@@ -5,7 +5,7 @@
   <div class="row mt-3">
     <div class="col-md-8 offset-md-2 text-center">
 
-      <img class="img-fluid" src="../assets/KNSWHITE.png" width="400" />
+      <img class="img-fluid" src="../assets/KlimaDAO-NS-Emblem.png" width="300" />
 
       <p>Klima Name Service (KNS) domains are regenerative domains that <strong>continuously offset your carbon footprint</strong> and act as social representations of your carbon neutrality or net zero pledges.</p>
       <p>KNS powers the <strong>Terraneutral platform</strong>, a social platform for Refi, suitable for both individuals and businesses.</p>

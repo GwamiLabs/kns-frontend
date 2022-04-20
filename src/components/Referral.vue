@@ -2,21 +2,18 @@
   <div class="row">
     <div class="col-md-12 mt-3">
       <div class="container text-center">
-        <h3>Referrals</h3>
-
-        <p> 
+        <p>
+          <strong>Referrals</strong> 
           Share this referral link and earn rewards from new domain mints!
         </p>
 
         <div class="row mt-1">
-          <div class="col-md-6 offset-md-3">
-            <input 
-              class="form-control text-center clipboard"
-              :value="'http://www.kns.earth/?ref=' + this.getNameOrAddress"
-              @click="copyToClipboard('http://www.kns.earth/?ref=' + this.getNameOrAddress)"
-              readonly
-            >
-          </div>
+          <input 
+            class="form-control text-center clipboard"
+            :value="'http://www.kns.earth/?ref=' + this.getNameOrAddress"
+            @click="copyToClipboard('http://www.kns.earth/?ref=' + this.getNameOrAddress)"
+            readonly
+          >
         </div>
       </div>
     </div>
@@ -59,6 +56,15 @@ export default {
 
 <style scoped>
 .clipboard {
-  cursor: pointer
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color:#4a4a4a;
+  width: 100%;
+  padding-top:10px;
+  padding-bottom: 10px;
+  background-color: transparent;
+  border-color: #a1a1a1;
+  border: 1px;
 }
 </style>
