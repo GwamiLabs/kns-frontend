@@ -1,22 +1,33 @@
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">
-        <img src="../assets/kns-white-logo-big.png" alt="" width="30" class="d-inline-block align-bottom navbar-img">
-        Klima Name Service
+        <img src="../assets/KlimaDAO-NS-LOGO.png" alt="KlimaDAO Name Service" 
+            height="105" width="275" class="d-inline-block align-bottom navbar-img">
+      </router-link>
+      <div class="legend-div">
+      <router-link to="/profile" class="d-inline-block navbar-legend">
+        YOUR PROFILE
       </router-link>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <router-link to="/about" class="d-inline-block navbar-legend">
+        ABOUT KNS
+      </router-link>
+
+      <router-link to="/how" class="d-inline-block navbar-legend">
+        HOW KNS WORKS
+      </router-link>
+      </div>
+
+
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         
-        <div class="d-flex ms-auto">
+        <div class="d-flex flex-row ms-auto">
           <div v-if="isActivated" class="">
           
             <div class="btn-group mx-2">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-primary btn-Network dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 {{getNetworkName}}
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -31,7 +42,7 @@
             </div>
 
             <div class="btn-group mx-2">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-primary btn-connectedName dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ getNameOrAddress }}
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
@@ -47,7 +58,7 @@
             </div>
           </div>
 
-          <button v-else class="btn btn-primary" @click="open">Connect wallet</button>
+          <button v-else class="btn btn-primary btn-unConnected" @click="open">Connect wallet</button>
         </div>
 
       </div>
@@ -115,20 +126,104 @@ export default {
 .dropdown-item {
   cursor: pointer;
 }
+
+.legend-div { 
+  float:left;
+  padding-left:5%;
+  width:40%;
+  display: flex;
+  align-items:stretch;
+  justify-content: space-around;
+}
+
+.legend-div .navbar-legend {
+  color: #4A4A4A;
+  font-weight: normal;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px;
+
+}
+
 .navbar-brand {
   /*font-family: 'Cyber', cursive;*/
 }
-.navbar-dark .navbar-brand {
-  color: white;
+.navbar-light .navbar-brand {
+  color: #4A4A4A;
 }
-.navbar-dark {
-  background: linear-gradient(90deg, hsla(173, 100%, 25%, 1) 0%, hsla(120, 100%, 13%, 1) 100%);
+.navbar-light {
+  height:146px;
+  background: #FFFFFF;
   border-radius: 0px 0px 10px 10px;
-  padding: 20px;
+  padding: 10px;
   
 }
 .navbar-img {
   margin-right: 5px;
   color: #DBDFEA;
 }
+
+.btn-connectedName,  .btn-connectedName:active, 
+        .btn-connectedName:focus, .btn-connectedName:disabled {
+  background: #00CC33;
+  border-color: #00CC33;
+  border-width: 1px;
+  border-radius: 13px;
+  box-shadow: none;
+  color: #FFFFFF;
+}
+
+.btn-connectedName:hover {
+  background: #00CC33;
+  border-color: #4A4A4A;
+  border-width: 1px;
+  border-radius: 13px;
+  box-shadow: none;
+  color: #FFFFFF;
+}
+
+.btn-Network,  .btn-Network:active, 
+        .btn-Network:focus, .btn-Network:disabled {
+  background: transparent;
+  border-color: #00CC33;
+  border-width: 1px;
+  border-radius: 13px;
+  box-shadow: none;
+  color: #4A4A4A;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-Network:hover {
+  background: #00CC33;
+  border-color: #4A4A4A;
+  border-width: 1px;
+  border-radius: 13px;
+  box-shadow: none;
+  color: #FFFFFF;
+}
+
+.btn-unConnected,  .btn-unConnected:active, 
+        .btn-unConnected:focus, .btn-unConnected:disabled {
+  background: #A1A1A1;
+  border-color: #00CC33;
+  border-width: 1px;
+  border-radius: 13px;
+  box-shadow: none;
+  color: #FFFFFF;
+}
+
+.btn-unConnected:hover {
+  background: #00CC33;
+  border-color: #00CC33;
+  border-width: 1px;
+  border-radius: 13px;
+  box-shadow: none;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width:600px) {
+
+}
+
 </style>

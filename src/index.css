@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 @font-face { 
   font-family: "Cyber";
@@ -14,9 +14,9 @@ a:hover {
 }
 
 body {
-  font-family: 'Roboto Condensed', sans-serif;
-  background: linear-gradient(90deg, hsla(173, 100%, 25%, 1) 0%, hsla(120, 100%, 13%, 1) 100%);
-  color: #DBDFEA;
+  font-family: 'Poppins', sans-serif;
+  background: #FFFFFF;
+  color: #4a4a4a;
 }
 
 p {
@@ -32,16 +32,21 @@ hr {
 }
 
 .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:disabled {
-  background: transparent;
-  border-color: #DBDFEA;
+  background: #00CC33;
+  border-color: transparent;
+  border-width: 1px;
+  border-radius: 13px;
   box-shadow: none;
-  color: #DBDFEA;
+  color: #FFFFFF;
 }
 
 .btn-primary:hover {
-  color: black;
-  border-color: #ffffff;
-  background: #ffffff;
+  background: #00CC33;
+  border-color: #4A4A4A;
+  border-width: 1px;
+  border-radius: 13px;
+  box-shadow: none;
+  color: #FFFFFF;
 }
 
 .btn-secondary, .btn-secondary:active, .btn-secondary:focus, .btn-secondary:disabled {
@@ -59,9 +64,7 @@ hr {
 
 .container {
   background: transparent;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #DBDFEA;
+  padding: 5px;
 }
 
 .img-thumbnail {
@@ -101,4 +104,8 @@ hr {
   #sidebar-container {
     margin-bottom: 15px;
   }
+  #navBar {
+    font-size:5px;
+    
+}
 }
