@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="padding:0">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="padding:0;background:#ffffff">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">
         <img
