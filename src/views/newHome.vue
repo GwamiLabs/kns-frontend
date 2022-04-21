@@ -36,11 +36,11 @@
         </v-row>
       </v-container>
     </v-col>
-    <v-col cols="9">
+    <v-col cols="8">
         <v-row style="margin:2%">
             <v-card variant="outlined" style="width: 100%; height:100%; border-color:#A1A1A1" >
                         <v-row justify="space-between" style="margin:1px" @click="clickCard">
-                            <v-col cols="10">
+                            <v-col cols="9">
                 <input placeholder="Your name here" v-model="chosenDomainName" class="domainInput"  />
                             </v-col>
                             <v-col cols="2" justify="end">
@@ -60,6 +60,8 @@
         </v-row>
 
          </v-col>
+                                 <v-col cols="1" > </v-col>
+
   </v-row>
 </template>
 
