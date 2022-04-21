@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="padding:0">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">
         <img
@@ -14,10 +14,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" style="justify-content:center">
-        <router-link to="/profile" > Your Profile </router-link>
-        <router-link to="/about"> About KNS </router-link>
-        <router-link to="/how"> How Kns Works </router-link>
+      <div class="collapse navbar-collapse" style="justify-content:center" id="navbarSupportedContent">
+        <router-link to="/profile" style="width:140px"> Your Profile </router-link>
+        <router-link to="/about" style="width:140px"> About KNS </router-link>
+        <router-link to="/how" style="width:140px"> How Kns Works </router-link>
       </div>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -63,9 +63,16 @@
             </div>
           </div>
 
-          <button v-else class="btn btn-primary" @click="open">
+            <v-btn
+            v-else
+                color="#A1A1A1"
+                aria-expanded="false"
+                @click="open"
+              >
+  <span style="color: #ffffff">
             Connect wallet
-          </button>
+  </span>
+          </v-btn>
         </div>
       </div>
     </div>
