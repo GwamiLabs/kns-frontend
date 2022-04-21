@@ -1,8 +1,5 @@
 <template>
-
   <div class="container-fluid text-center mt-3">
-
-
     <router-link v-if="isActivated && isNetworkSupported" to="/profile">Profile</router-link>
     
     <span v-if="isActivated && isNetworkSupported"> | </span>
@@ -15,15 +12,13 @@
     
     <span> | </span>
 
-    <a target="_blank" href="https://twitter.com/punkdomains">Powered by Punk Domains</a>
-
-    <span> | </span>
-
-    <a target="_blank" href="https://twitter.com/gwamilabs">Built by GwamiLabs</a>
+    <a target="_blank" href="https://punk.domains">Powered by Punk Domains</a>
     
   </div>
 
   <div class="container-fluid text-center">
+
+    <a class="icons" href="" target="_blank"><i class="bi bi-journal-text"></i></a>
 
     <a class="icons" target="_blank" href="https://github.com/GwamiLabs"><i class="bi bi-github"></i></a>
 
@@ -73,7 +68,6 @@ a:hover {
   margin-left: 15px;
   margin-right: 15px;
   font-size: 2em;
-  width: 2em;
 }
 
 .polygon {
