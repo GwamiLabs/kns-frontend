@@ -10,6 +10,7 @@
         />
       </router-link>
 
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -22,6 +23,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="d-flex ms-auto">
+
           <div v-if="isActivated" class="">
             <div class="btn-group mx-2">
               <v-btn
@@ -145,6 +147,12 @@ export default {
 .dropdown-item {
   cursor: pointer;
 }
+
+.dropdown-item:active {
+  cursor: pointer;
+  background:#a1a1a1;
+}
+
 .navbar-brand {
   /*font-family: 'Cyber', cursive;*/
 }
@@ -169,4 +177,5 @@ export default {
 a {
   margin-right: 6%;
 }
+
 </style>

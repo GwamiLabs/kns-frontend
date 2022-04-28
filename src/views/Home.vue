@@ -1,8 +1,9 @@
 <template>
   <div class="container text-center">
-    <h1 class="mt-5">Mint Your .klima Domain!</h1>
+    <h1 class="mt-5 headline">Mint Your .klima Domain!</h1>
+    <h2 class="mt-3 subtitle">Each domain mint is a climate positive transaction and comes with a percentage of retired offset carbon.</h2>
 
-    <div class="d-flex justify-content-center domain-input-container">
+    <div class="d-flex justify-content-center domain-input-container mb-3">
       <div class="input-group domain-input input-group-lg">
         <input
           v-model="chosenDomainName" 
@@ -20,7 +21,7 @@
     </div>
 
     <p>
-      <small @click="showRetMsg" class="ret-msg">Optional: Add short message for Klima Love Letters</small>
+      <small @click="showRetMsg" class="ret-msg">Optional: Add a short message for Klima Love Letters</small>
     </p>
     
     <div v-if="showRetMsgInput" class="d-flex justify-content-center">
@@ -72,10 +73,10 @@
     </button>
 
     <!-- Connect Wallet -->
-    <button v-if="!isActivated" class="btn btn-primary btn-lg mt-3 buy-button" @click="open">Connect wallet</button>
+    <button v-if="!isActivated" class="btn btn-primary btn-lg mt-3 btn-Disconnected" @click="open">Connect wallet</button>
 
-    <div v-if="isActivated && !isNetworkSupported" class="mt-4 buy-button">
-      <button class="btn btn-primary btn-lg" @click="changeNetwork('Polygon')">Switch to Polygon</button>
+    <div v-if="isActivated && !isNetworkSupported" class="mt-4">
+      <button class="btn btn-primary btn-lg btn-Disconnected" @click="changeNetwork('Polygon')">Switch to Polygon</button>
     </div>
     
   </div>
@@ -371,8 +372,53 @@ export default {
 </script>
 
 <style scoped>
+
+.headline {
+  font-size: 50px;
+}
+
+.subtitle {
+  color: #a1a1a1;
+  padding-left:20%;
+  padding-right:20%;
+}
+
 .buy-button {
   margin-bottom: 50px;
+  background: #00CC33;
+  color: #ffffff;
+  width:50%;
+}
+
+.buy-button:hover {
+  margin-bottom: 50px;
+  background: #00CC33;
+  border: 1px solid #4a4a4a;
+  color: #ffffff;
+  width:50%;
+}
+
+.btn-Disconnected, .btn-Disconnected:active, .btn-Disconnected:focus, .btn-Disconnected:disabled {
+  margin-bottom: 50px;
+  background: #a1a1a1;
+  border-color: #00CC33;
+  font-size:18px;
+  box-shadow: none;
+  color: #ffffff;
+  border-radius: 13px;
+  width:50%;
+}
+
+.btn-Disconnected:hover {
+  margin-bottom: 50px;
+  background: #a1a1a1;
+  border-color: #00CC33;
+  font-size:18px;
+  font-weight: bold;
+  box-shadow: none;
+  color: #ffffff;
+  border-radius: 13px;
+  width:50%;
 }
 
 .domain-input {
@@ -404,5 +450,27 @@ export default {
   .domain-input {
     width: 100%;
   }
+
+  .subtitle{
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  
+.buy-button {
+  width:100%;
+}
+
+.buy-button:hover {
+  width:100%;
+}
+
+.btn-Disconnected, .btn-Disconnected:active, .btn-Disconnected:focus, .btn-Disconnected:disabled {
+  width:100%;
+}
+
+.btn-Disconnected:hover {
+  width:100%;
+}
+
 }
 </style>

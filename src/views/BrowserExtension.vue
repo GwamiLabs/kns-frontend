@@ -13,9 +13,9 @@
             <h3>Browser Extension/Plugin</h3>
 
             <p class="text-wrap p-4">
-              Punk Domains browser extension allows you to enter a .klima domain name in the URL bar and the 
+              KNS Domains browser extension allows you to enter a .klima domain name in the URL bar and the 
               extension will redirect you to the URL that is set for that domain. If no URL is set, the extension 
-              will redirect you to the domain page on the Klima Name Service website.
+              will redirect you to the domain page on the KlimaDAO Name Service website.
             </p>
           </div>
         </div>
@@ -29,10 +29,11 @@
             <h3>Chrome/Brave</h3>
 
             <p>
-              <small><em>Coming soon!</em></small>
+              <strong>Live!</strong>
             </p>
-
+            <a href="https://chrome.google.com/webstore/detail/punk-domains/mdcmgmmealkedhjjpapbgoiabnkgieem">
             <img class="img-fluid browser-img mb-3" src="../assets/chrome-logo.png" />
+            </a>
           </div>
         </div>
 
