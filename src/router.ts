@@ -4,12 +4,13 @@ import About from './views/About.vue'
 import Allowance from './views/Allowance.vue'
 import BrowserExtension from './views/BrowserExtension.vue'
 import DomainDetails from './views/DomainDetails.vue'
-import Home from './views/Home.vue'
+import Home from './views/newHome.vue'
 import HowItWorks from './views/HowItWorks.vue'
 import Profile from './views/Profile.vue'
 import SearchDomains from './views/SearchDomains.vue'
 import SendTokens from './views/SendTokens.vue'
 import TransferDomain from './views/TransferDomain.vue'
+
 
 // For info on using Vue Router with the Composition API, see https://next.router.vuejs.org/guide/advanced/composition-api.html
 

@@ -1,8 +1,13 @@
 <template>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="padding:0;background:#ffffff">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">
-        <img src="../assets/LOGO.png" alt="KlimaDAO Name Service" height="88" width="249" class="d-inline-block align-bottom navbar-img">
+        <img
+          src="src/assets/KlimaDAO-NS-LOGO.png"
+          alt=""
+          width="300"
+          class="d-inline-block align-bottom navbar-img"
+        />
       </router-link>
 
 
@@ -10,63 +15,75 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <div class="collapse navbar-collapse" style="justify-content:center" id="navbarSupportedContent">
+        <router-link to="/profile" style="width:140px"> Your Profile </router-link>
+        <router-link to="/about" style="width:140px"> About KNS </router-link>
+        <router-link to="/how" style="width:140px"> How Kns Works </router-link>
+      </div>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <div class="d-flex ms-auto justify-content-left">
-
-        <router-link v-if="isActivated && isNetworkSupported" to="/profile" class="navbar-text mx-4">PROFILE</router-link>
-        <router-link to="/about" class="navbar-text mx-4">ABOUT KNS</router-link>
-        <router-link to="/how" class="navbar-text mx-4">HOW IT WORKS</router-link>
-        </div>
-        
         <div class="d-flex ms-auto">
 
           <div v-if="isActivated" class="">
-          
             <div class="btn-group mx-2">
-              <button class="btn btn-Network btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                {{getNetworkName}}
-              </button>
+              <v-btn
+                color="white"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{ getNetworkName }}
+                <v-icon append>mdi-menu-down</v-icon>
+              </v-btn>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li>
-                  <span 
-                    class="dropdown-item" 
+                  <span
+                    class="dropdown-item"
                     v-for="network in getSupportedNetworkNames"
                     @click="changeNetwork(network)"
-                  >{{network}}</span>
+                    >{{ network }}</span
+                  >
                 </li>
               </ul>
             </div>
 
             <div class="btn-group mx-2">
-              <button class="btn btn-primary btn-Domain dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              <v-btn
+                color="primary"
+                type="button"
+                aria-expanded="false"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+              >
                 {{ getNameOrAddress }}
-              </button>
+                <v-icon append>mdi-menu-down</v-icon>
+              </v-btn>
+
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <router-link tag="li" class="dropdown-item" to="/profile">Profile</router-link>
-                <router-link tag="li" class="dropdown-item" to="/">Buy domain</router-link>
-                <router-link tag="li" class="dropdown-item" to="/search-domain">Search domain</router-link>
-                <router-link tag="li" class="dropdown-item" to="/send-tokens">Send tokens</router-link>
-                <router-link tag="li" class="dropdown-item" to="/about">About</router-link>
-                <router-link tag="li" class="dropdown-item" to="/how">How it works</router-link>
-                <router-link tag="li" class="dropdown-item" to="/browser">Browser extension</router-link>
                 <li class="dropdown-item" @click="logout">Disconnect</li>
               </ul>
             </div>
           </div>
 
-          <button v-else class="btn btn-primary btn-Disconnected" @click="open">Connect wallet</button>
+            <v-btn
+            v-else
+                color="#A1A1A1"
+                aria-expanded="false"
+                @click="open"
+              >
+  <span style="color: #ffffff">
+            Connect wallet
+  </span>
+          </v-btn>
         </div>
-
       </div>
     </div>
   </nav>
 </template>
 
 <script lang="ts">
-import { mapGetters } from 'vuex';
-import { useBoard, useEthers, useWallet } from 'vue-dapp';
+import { mapGetters } from "vuex";
+import { useBoard, useEthers, useWallet } from "vue-dapp";
 import useChainHelpers from "../hooks/useChainHelpers";
 
 export default {
@@ -74,7 +91,11 @@ export default {
 
   computed: {
     ...mapGetters("user", ["getUserShortAddress", "getUserSelectedName"]),
-    ...mapGetters("network", ["getNetworkName", "getSupportedNetworks", "getSupportedNetworkNames", "isNetworkSupported"]),
+    ...mapGetters("network", [
+      "getNetworkName",
+      "getSupportedNetworks",
+      "getSupportedNetworkNames",
+    ]),
 
     getNameOrAddress() {
       if (this.getUserSelectedName) {
@@ -83,16 +104,15 @@ export default {
         return this.getUserShortAddress;
       }
     },
-
   },
 
   methods: {
     changeNetwork(networkName) {
-      const networkData = this.switchNetwork(networkName); 
+      const networkData = this.switchNetwork(networkName);
 
-      window.ethereum.request({ 
-        method: networkData.method, 
-        params: networkData.params
+      window.ethereum.request({
+        method: networkData.method,
+        params: networkData.params,
       });
     },
 
@@ -103,10 +123,10 @@ export default {
     },
 
     openUrl(url) {
-      window.open(url, '_blank').focus();
-    }
+      window.open(url, "_blank").focus();
+    },
   },
-  
+
   setup() {
     const { open } = useBoard();
     const { disconnect } = useWallet();
@@ -114,10 +134,13 @@ export default {
     const { switchNetwork } = useChainHelpers();
 
     return {
-      isActivated, disconnect, open, switchNetwork
-    }
-  }
-}
+      isActivated,
+      disconnect,
+      open,
+      switchNetwork,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -133,30 +156,26 @@ export default {
 .navbar-brand {
   /*font-family: 'Cyber', cursive;*/
 }
-.navbar-light .navbar-brand .navbar-text {
-  color: #4a4a4a;
+.navbar-dark .navbar-brand {
+  color: black;
 }
 
-.navbar-text {
-  letter-spacing: 2px;
-  font-size: 16px;
-}
-
-.navbar-text:hover {
-  letter-spacing: 2px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.navbar-light {
-  background: #ffffff;
-  border-radius: 0px 0px 13px 13px;
-  padding: 10px;
-  
+.navbar-dark {
+  border-radius: 0px 0px 10px 10px;
+  padding: 20px;
+  border-top-color: black;
 }
 .navbar-img {
   margin-right: 5px;
-  color: #DBDFEA;
+  color: #dbdfea;
+}
+
+#navbarSupportedContent {
+  flex-grow: inherit;
+}
+
+a {
+  margin-right: 6%;
 }
 
 </style>

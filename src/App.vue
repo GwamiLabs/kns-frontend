@@ -1,13 +1,15 @@
 <template>
+<v-app>
   <Navbar />
 
-  <div class="main-container">
+<v-main>
     <router-view></router-view>
+</v-main>
 
     <Footer />
-  </div>
   
   <vdapp-board />
+</v-app>
 </template>
 
 <script lang="ts">

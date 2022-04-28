@@ -7,10 +7,11 @@
 
 a {
   color: #4A4A4A;
+  text-decoration: none;
 }
 
 a:hover {
-  color: #a1a1a1;
+  color: #A1A1A1;
 }
 
 body {
@@ -21,6 +22,12 @@ body {
 
 p {
   font-size: 18px;
+  color: #A1A1A1;
+}
+
+span {
+  font-size: 18px;
+  color: #A1A1A1;
 }
 
 div {
