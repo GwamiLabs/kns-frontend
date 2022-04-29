@@ -2,10 +2,6 @@
   <div class="container">
 
     <!-- Flip profile images -->
-      <div class="text-center" @click="flipImage">
-        <small><i class="bi bi-arrow-repeat"></i></small>
-      </div>
-
       <!-- Custom image (TODO: update this one, custom-img-container and custom-img-content) -->
       <transition name="flip">
         <div v-if="flipSide=='front'" @click="flipImage" class="img-thumbnail custom-img-container">
@@ -25,11 +21,11 @@
         <img v-if="flipSide=='back'" @click="flipImage" :src="getUserImage" class="img-fluid img-thumbnail">
       </transition>
       <!-- END Punk Domain image -->
-    <!-- END Flip profile images -->
 
-    <h3 class="text-center mt-2 text-break">
-      {{getNameOrAddress}}
-    </h3>
+      <div class="text-center" @click="flipImage">
+        <small><i class="bi bi-arrow-repeat flip-icon"></i></small>
+      </div>
+    <!-- END Flip profile images -->
 
     <hr />
 
@@ -187,6 +183,10 @@ export default {
 .flip-enter-from, .flip-leave-from {
   transform: rotateY(180deg);
   opacity: 0;
+}
+
+.flip-icon {
+  cursor: pointer;
 }
 
 .img-thumbnail {
