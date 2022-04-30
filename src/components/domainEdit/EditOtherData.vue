@@ -77,7 +77,7 @@
 
 <script>
 import { ethers } from 'ethers';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { useEthers } from 'vue-dapp';
 import { useToast, TYPE } from "vue-toastification";
 import WaitingToast from "../toasts/WaitingToast.vue";
@@ -121,6 +121,8 @@ export default {
   },
 
   methods: {
+    ...mapActions("user", ["fetchSelectedNameData"]),
+
     addField() {
       this.fields.push({dataKey: "", dataValue: ""});
     },
@@ -171,6 +173,7 @@ export default {
               type: TYPE.SUCCESS,
               onClick: () => window.open(this.getBlockExplorerBaseUrl+"/tx/"+tx.hash, '_blank').focus()
             });
+            this.fetchSelectedNameData();
             this.$emit("fetchData");
             this.btnInactive = false;
           } else {
