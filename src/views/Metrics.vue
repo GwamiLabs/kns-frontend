@@ -26,9 +26,9 @@
       </div>
       <div>
         <h1>Top .Klima Domains (by Beneficiary Name) - Total Tonnes Retired</h1>
-        <ApolloDotKlimaPics beneficiary=".klima" :numUsers="5"
+        <!--<ApolloDotKlimaPics beneficiary=".klima" :numUsers="5"
                       :first="1000"
-                      :skip="0" mode="MAX_AMOUNT" />
+                      :skip="0" mode="MAX_AMOUNT" />-->
       </div>  
       <div>
         <h1>Top General Users (by Beneficiary Name) - Total Tonnes Retired</h1>
@@ -199,9 +199,9 @@ import ApolloAggTime from '../components/metrics/ApolloAggTime.vue';
 import ApolloAggAddr from '../components/metrics/ApolloAggAddr.vue';
 import ApolloAggBenf from '../components/metrics/ApolloAggBenf.vue';
 import ApolloGenKI from '../components/metrics/ApolloGenKI.vue';
-import ApolloDotKlimaPics from '../components/metrics/ApolloDotKlimaPics.vue';
+//import ApolloDotKlimaPics from '../components/metrics/ApolloDotKlimaPics.vue';
 
-import { useAggBenfKI } from "../apollo/useApolloHelpers";
+//import { useAggBenfKI } from "../apollo/useApolloHelpers";
 
 export default {
   name: "Metrics",
@@ -222,7 +222,7 @@ export default {
     ApolloAggAddr,
     ApolloAggBenf,
     ApolloGenKI,
-    ApolloDotKlimaPics
+    //ApolloDotKlimaPics
   },
 
   computed: {
@@ -292,7 +292,7 @@ export default {
         //need to bring the ethers logic here, and loop through
         //the relevant leaderboard domains.
         
-      async getTopDomainPics(){
+      /*async getTopDomainPics(){
         //return 1;
         //return ([props.beneficiary, props.numUsers, props.first, props.skip, props.mode])
         const topXdata = await useAggBenfKI(props.beneficiary, props.numUsers, props.first, props.skip, props.mode)
@@ -304,7 +304,7 @@ export default {
             topKlimaDomainsPics.push(...topXdata[i], domainData.imgAddress);
         }
         //return topKlimaDomainsPics;
-      },
+      },*/
   },
 
   setup() {
