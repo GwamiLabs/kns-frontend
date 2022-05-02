@@ -7,29 +7,6 @@
 
     <div class="col-md-8 offset-md-2 text-center">
 
-        <ApolloAggBenf beneficiary="" :numUsers="4"
-        :first="1000"
-        :skip="0" mode="" />
-  <ApolloAggAddr address="" :numUsers="4" 
-        :first="1000"
-        :skip="0" mode="" />
-  <ApolloGenKI 
-    beneficiary = ".klima"
-    address = ""
-    :first = "4"
-    :skip = "0"
-    ordering = "timestamp"
-    direction = "desc"
-    />
-
-  <ApolloAggTime 
-        mode = "MAX_AMOUNT"
-        :numPeriods="5"
-        :periodInSecs="10000"
-        :first="1000"
-        :skip="0"
-    />
-
       <img class="img-fluid my-5" src="../assets/kns-green-logo.png" width="300" />
 
       <p>KlimaDAO Name Service (KNS) domains are regenerative domains that <strong>continuously offset your carbon footprint</strong> and act as social representations of your carbon neutrality or net zero pledges.</p>
@@ -75,20 +52,10 @@
 </template>
 
 <script lang="ts">
-import ApolloAggTime from '../components/metrics/ApolloAggTime.vue'
-import ApolloAggAddr from '../components/metrics/ApolloAggAddr.vue'
-import ApolloAggBenf from '../components/metrics/ApolloAggBenf.vue'
-import ApolloGenKI from '../components/metrics/ApolloGenKI.vue'
 
 
   export default {
-    name: "About",
-    components:{
-      ApolloAggTime,
-      ApolloAggAddr,
-      ApolloAggBenf,
-      ApolloGenKI
-    }
+    name: "About"
   }
 </script>
 

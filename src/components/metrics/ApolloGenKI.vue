@@ -1,7 +1,5 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
-//import apolloClient from '../../apollo/client.js'
-//import { GEN_KI } from '../../graphql'
 import { useGeneralKI } from '../../apollo/useApolloHelpers'
 
 const response = ref([])
@@ -22,34 +20,34 @@ onMounted(async () => {
                                       props.skip,
                                       props.ordering,
                                       props.direction)
-  /*
-  const { data } = await apolloClient.query({
-    query: GEN_KI,
-    variables:{
-      beneficiary:props.beneficiary,
-      address:props.address,
-      first: props.first,
-      ordering: props.ordering,
-      direction:props.direction
-    }
-  })
-
-  response.value = data.klimaRetires
-*/
 })
 </script>
 
 <template>
   <div class="response">
-    <code>{{ response }}</code>
-    <table>
+    <!--<code>{{ response }}</code>-->
+    <table class="table">
         <thead>
         <tr>
-          <th v-for="header in tableheaders">{{header}}</th>
+          <!--<th v-for="header in tableheaders">{{header}}</th>-->
+          <th>Beneficiary</th>
+          <th>Address</th>
+          <th>Txn Hash</th>
+          <th>Timestamp</th>
+          <th>Tonnes</th>
+          <th>Bridge</th>
+          <th>Project ID</th>
         </tr>
         </thead>
         <tr v-for="row in response">
-        <td v-for="cell in Object.values(row)"> {{cell}} </td>
+        <!--<td v-for="cell in Object.values(row)"> {{cell}} </td>-->
+        <td>{{row.beneficiary}}</td>
+        <td>{{row.beneficiaryAddress}}</td>
+        <td>{{row.transaction.id}}</td>
+        <td>{{row.timestamp}}</td>
+        <td>{{row.amount}}</td>
+        <td>{{row.offset.bridge}}</td>
+        <td>{{row.offset.projectID}}</td>
         </tr>
     </table> 
   </div>

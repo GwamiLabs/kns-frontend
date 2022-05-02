@@ -7,63 +7,87 @@
 
     <div class="col-md-9">
       <div>
-<h1>Top General Users (by Beneficiary Name) - Total Tonnes Retired</h1>
-<ApolloAggBenf beneficiary="" :numUsers="5"
-        :first="1000"
-        :skip="0" mode="MAX_AMOUNT" />
-</div>
-<div>
-<h1>Top General Users (by Beneficiary Name) - No. of Times Retired</h1>
-<ApolloAggBenf beneficiary="" :numUsers="5"
-        :first="1000"
-        :skip="0" mode="MAX_COUNT" />
-</div>
-<div>
-<h1>Top General Users (by Beneficiary Address) - Total Tonnes Retired</h1>
-<ApolloAggAddr address="" :numUsers="5" 
-        :first="1000"
-        :skip="0" mode="MAX_AMOUNT" />
-</div>
-<div>
-<h1>Top General Users (by Beneficiary Address) - No. of Times Retired</h1>
-<ApolloAggAddr address="" :numUsers="5" 
-        :first="1000"
-        :skip="0" mode="MAX_COUNT" />
-</div>
-<div>
-<h1>Top Klima Users (by Beneficiary Name) - Total Tonnes Retired</h1>
-<ApolloAggBenf beneficiary=".klima" :numUsers="10"
-        :first="1000"
-        :skip="0" mode="MAX_AMOUNT" />
-</div>
-<div>
-<h1>Top Klima Users (by Beneficiary Name) - No. of Times Retired</h1>
-<ApolloAggBenf beneficiary=".klima" :numUsers="10"
-        :first="1000"
-        :skip="0" mode="MAX_COUNT" />
-</div>
-<div>
-<h1>Largest .klima Domain Retirements</h1>
-  <ApolloGenKI 
-    beneficiary = ".klima"
-    address = ""
-    :first = "1000"
-    :skip = "0"
-    ordering = "amount"
-    direction = "desc"
-    />
-</div>
-<div>
-<h1>Latest .klima Domain Retirements</h1>
-  <ApolloGenKI 
-    beneficiary = ".klima"
-    address = ""
-    :first = "1000"
-    :skip = "0"
-    ordering = "timestamp"
-    direction = "desc"
-    />
-</div>
+        <h1>Biggest 24 hour periods for tonnes retired</h1>
+        <ApolloAggTime :numPeriods="5"
+                      :periodInSecs="86400"
+                      :first="1000"
+                      :skip="0"
+                      mode="MAX_AMOUNT"
+        />
+      </div>
+      <div>
+        <h1>Biggest 24 hour periods for no. of retirements</h1>
+        <ApolloAggTime :numPeriods="5"
+                      :periodInSecs="86400"
+                      :first="1000"
+                      :skip="0"
+                      mode="MAX_COUNT"
+        />
+      </div>
+      <div>
+        <h1>Top .Klima Domains (by Beneficiary Name) - Total Tonnes Retired</h1>
+        <ApolloDotKlimaPics beneficiary=".klima" :numUsers="5"
+                      :first="1000"
+                      :skip="0" mode="MAX_AMOUNT" />
+      </div>  
+      <div>
+        <h1>Top General Users (by Beneficiary Name) - Total Tonnes Retired</h1>
+        <ApolloAggBenf beneficiary="" :numUsers="5"
+                :first="1000"
+                :skip="0" mode="MAX_AMOUNT" />
+      </div>
+      <div>
+        <h1>Top General Users (by Beneficiary Name) - No. of Times Retired</h1>
+        <ApolloAggBenf beneficiary="" :numUsers="5"
+                :first="1000"
+                :skip="0" mode="MAX_COUNT" />
+      </div>
+      <div>
+        <h1>Top General Users (by Beneficiary Address) - Total Tonnes Retired</h1>
+        <ApolloAggAddr address="" :numUsers="5" 
+                :first="1000"
+                :skip="0" mode="MAX_AMOUNT" />
+      </div>
+      <div>
+        <h1>Top General Users (by Beneficiary Address) - No. of Times Retired</h1>
+        <ApolloAggAddr address="" :numUsers="5" 
+                :first="1000"
+                :skip="0" mode="MAX_COUNT" />
+      </div>
+      <div>
+        <h1>Top Klima Users (by Beneficiary Name) - Total Tonnes Retired</h1>
+        <ApolloAggBenf beneficiary=".klima" :numUsers="10"
+                :first="1000"
+                :skip="0" mode="MAX_AMOUNT" />
+      </div>
+      <div>
+        <h1>Top Klima Users (by Beneficiary Name) - No. of Times Retired</h1>
+        <ApolloAggBenf beneficiary=".klima" :numUsers="10"
+                :first="1000"
+                :skip="0" mode="MAX_COUNT" />
+      </div>
+      <div>
+        <h1>Largest .klima Domain Retirements</h1>
+          <ApolloGenKI 
+            beneficiary = ".klima"
+            address = ""
+            :first = "1000"
+            :skip = "0"
+            ordering = "amount"
+            direction = "desc"
+            />
+      </div>
+      <div>
+        <h1>Latest .klima Domain Retirements</h1>
+          <ApolloGenKI 
+            beneficiary = ".klima"
+            address = ""
+            :first = "1000"
+            :skip = "0"
+            ordering = "timestamp"
+            direction = "desc"
+            />
+      </div>
 
       <!-- Show this if user is not connected -->
       <div class="row" v-if="!isActivated">
@@ -175,6 +199,7 @@ import ApolloAggTime from '../components/metrics/ApolloAggTime.vue';
 import ApolloAggAddr from '../components/metrics/ApolloAggAddr.vue';
 import ApolloAggBenf from '../components/metrics/ApolloAggBenf.vue';
 import ApolloGenKI from '../components/metrics/ApolloGenKI.vue';
+import ApolloDotKlimaPics from '../components/metrics/ApolloDotKlimaPics.vue';
 
 import { useAggBenfKI } from "../apollo/useApolloHelpers";
 
@@ -196,7 +221,8 @@ export default {
     ApolloAggTime,
     ApolloAggAddr,
     ApolloAggBenf,
-    ApolloGenKI
+    ApolloGenKI,
+    ApolloDotKlimaPics
   },
 
   computed: {
@@ -266,24 +292,19 @@ export default {
         //need to bring the ethers logic here, and loop through
         //the relevant leaderboard domains.
         
-        async findDomainPics(){
-            
-
-            const topXdata = await useAggBenfKI(
-                                    ".klima",
-                                    15, //this is the "top X" number
-                                    1000,
-                                    0,
-                                    "MAX_AMOUNT"
-                                    );
-
-            const intfc = new ethers.utils.Interface(tldAbi);
-            const contract = new ethers.Contract(this.getKlimaTldAddress, intfc, this.signer);
-            for (let domain in topXdata) {
-                let domainData = await contract.getDomainData(domain.slice(0,-5));
-                this.topKlimaDomainsPics.push(...domain, JSON.parse(domainData).imgAddress);
-            }
-        },
+      async getTopDomainPics(){
+        //return 1;
+        //return ([props.beneficiary, props.numUsers, props.first, props.skip, props.mode])
+        const topXdata = await useAggBenfKI(props.beneficiary, props.numUsers, props.first, props.skip, props.mode)
+        const intfc = new ethers.utils.Interface(tldAbi);
+        const contract = new ethers.Contract(KlimaTldAddress, intfc, signer);
+        const topKlimaDomainsPics=[];
+        for(let i=0; i<topXdata.length; i++){
+          let domainData = await contract.getDomainData(topXdata[i][2].slice(0,-6));
+            topKlimaDomainsPics.push(...topXdata[i], domainData.imgAddress);
+        }
+        //return topKlimaDomainsPics;
+      },
   },
 
   setup() {

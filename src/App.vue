@@ -3,14 +3,6 @@
 
   <div class="main-container">
     <router-view></router-view>
-      <ApolloGenKI 
-    beneficiary = ".klima"
-    address = ""
-    :first = "4"
-    :skip = "0"
-    ordering = "timestamp"
-    direction = "desc"
-    />
     
     <Footer />
   </div>
@@ -28,13 +20,11 @@ import Footer from './components/Footer.vue';
 import tldsJson from './abi/tlds.json';
 import tldAbi from './abi/PunkTLD.json';
 import useChainHelpers from "./hooks/useChainHelpers";
-import ApolloGenKI from './components/metrics/ApolloGenKI.vue';
 
 export default {
   components: {
     Navbar,
-    Footer,
-    ApolloGenKI
+    Footer
   },
 
   created() {

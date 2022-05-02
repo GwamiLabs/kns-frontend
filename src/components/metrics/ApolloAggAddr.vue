@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 //import apolloClient from '../../apollo/client'
 //import { AGG_ADDR_KI } from '../../graphql'
@@ -22,13 +22,13 @@ onMounted(async () => {
 
 <template>
   <div class="response">
-    <code>{{ response }}</code>
-    <table>
+    <!--<code>{{ response }}</code>-->
+    <table class="table">
       <thead>
       <tr>
         <th >Address</th>
-        <th>Amount</th>
-        <th>Count</th>
+        <th>Tonnes</th>
+        <th>Retirements</th>
         </tr>
         </thead>
         <tbody v-if="props.mode=='MAX_COUNT'">
