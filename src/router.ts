@@ -10,6 +10,7 @@ import Profile from './views/Profile.vue'
 import SearchDomains from './views/SearchDomains.vue'
 import SendTokens from './views/SendTokens.vue'
 import TransferDomain from './views/TransferDomain.vue'
+import Metrics from './views/Metrics.vue'
 
 // For info on using Vue Router with the Composition API, see https://next.router.vuejs.org/guide/advanced/composition-api.html
 
@@ -59,6 +60,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/send-tokens',
     name: 'SendTokens',
     component: SendTokens,
+  },
+  {
+    path: '/metrics',
+    name: 'Metrics',
+    component: Metrics,
   },
   {
     path: '/transfer/:tld/:domainName',

@@ -18,6 +18,7 @@
         <router-link v-if="isActivated && isNetworkSupported" to="/profile" class="navbar-text mx-4">PROFILE</router-link>
         <router-link to="/about" class="navbar-text mx-4">ABOUT KNS</router-link>
         <router-link to="/how" class="navbar-text mx-4">HOW IT WORKS</router-link>
+        <router-link to="/metrics" class="navbar-text mx-4">METRICS</router-link>
         </div>
         
         <div class="d-flex ms-auto">
@@ -51,6 +52,7 @@
                 <router-link tag="li" class="dropdown-item" to="/about">About</router-link>
                 <router-link tag="li" class="dropdown-item" to="/how">How it works</router-link>
                 <router-link tag="li" class="dropdown-item" to="/browser">Browser extension</router-link>
+                <router-link tag="li" class="dropdown-item" to="/metrics">Metrics</router-link>
                 <li class="dropdown-item" @click="logout">Disconnect</li>
               </ul>
             </div>

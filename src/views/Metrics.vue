@@ -6,7 +6,65 @@
     </div>
 
     <div class="col-md-9">
-      
+      <div>
+<h1>Top General Users (by Beneficiary Name) - Total Tonnes Retired</h1>
+<ApolloAggBenf beneficiary="" :numUsers="5"
+        :first="1000"
+        :skip="0" mode="MAX_AMOUNT" />
+</div>
+<div>
+<h1>Top General Users (by Beneficiary Name) - No. of Times Retired</h1>
+<ApolloAggBenf beneficiary="" :numUsers="5"
+        :first="1000"
+        :skip="0" mode="MAX_COUNT" />
+</div>
+<div>
+<h1>Top General Users (by Beneficiary Address) - Total Tonnes Retired</h1>
+<ApolloAggAddr address="" :numUsers="5" 
+        :first="1000"
+        :skip="0" mode="MAX_AMOUNT" />
+</div>
+<div>
+<h1>Top General Users (by Beneficiary Address) - No. of Times Retired</h1>
+<ApolloAggAddr address="" :numUsers="5" 
+        :first="1000"
+        :skip="0" mode="MAX_COUNT" />
+</div>
+<div>
+<h1>Top Klima Users (by Beneficiary Name) - Total Tonnes Retired</h1>
+<ApolloAggBenf beneficiary=".klima" :numUsers="10"
+        :first="1000"
+        :skip="0" mode="MAX_AMOUNT" />
+</div>
+<div>
+<h1>Top Klima Users (by Beneficiary Name) - No. of Times Retired</h1>
+<ApolloAggBenf beneficiary=".klima" :numUsers="10"
+        :first="1000"
+        :skip="0" mode="MAX_COUNT" />
+</div>
+<div>
+<h1>Largest .klima Domain Retirements</h1>
+  <ApolloGenKI 
+    beneficiary = ".klima"
+    address = ""
+    :first = "1000"
+    :skip = "0"
+    ordering = "amount"
+    direction = "desc"
+    />
+</div>
+<div>
+<h1>Latest .klima Domain Retirements</h1>
+  <ApolloGenKI 
+    beneficiary = ".klima"
+    address = ""
+    :first = "1000"
+    :skip = "0"
+    ordering = "timestamp"
+    direction = "desc"
+    />
+</div>
+
       <!-- Show this if user is not connected -->
       <div class="row" v-if="!isActivated">
         <div class="col-md-12 mb-3">
@@ -113,20 +171,32 @@ import tldAbi from '../abi/PunkTLD.json';
 import erc20Abi from '../abi/Erc20.json';
 import useChainHelpers from "../hooks/useChainHelpers";
 
+import ApolloAggTime from '../components/metrics/ApolloAggTime.vue';
+import ApolloAggAddr from '../components/metrics/ApolloAggAddr.vue';
+import ApolloAggBenf from '../components/metrics/ApolloAggBenf.vue';
+import ApolloGenKI from '../components/metrics/ApolloGenKI.vue';
+
+import { useAggBenfKI } from "../apollo/useApolloHelpers";
+
 export default {
-  name: "Profile",
+  name: "Metrics",
 
   data() {
     return {
       existingDomain: null,
-      loading: false
+      loading: false,
+      topKlimaDomainsPics:[]
     }
   },
 
   components: {
     MyDomain,
     Referral,
-    Sidebar
+    Sidebar,
+    ApolloAggTime,
+    ApolloAggAddr,
+    ApolloAggBenf,
+    ApolloGenKI
   },
 
   computed: {
@@ -188,6 +258,32 @@ export default {
         this.toast("This domain is not owned by your currently connected address.", {type: TYPE.ERROR});
       }
     },
+
+    //functions to get user Address
+        //and find the domain pics for user and
+        //.klima leaderboard must be here. This latter one
+        //might be a puzzle for another time as we would
+        //need to bring the ethers logic here, and loop through
+        //the relevant leaderboard domains.
+        
+        async findDomainPics(){
+            
+
+            const topXdata = await useAggBenfKI(
+                                    ".klima",
+                                    15, //this is the "top X" number
+                                    1000,
+                                    0,
+                                    "MAX_AMOUNT"
+                                    );
+
+            const intfc = new ethers.utils.Interface(tldAbi);
+            const contract = new ethers.Contract(this.getKlimaTldAddress, intfc, this.signer);
+            for (let domain in topXdata) {
+                let domainData = await contract.getDomainData(domain.slice(0,-5));
+                this.topKlimaDomainsPics.push(...domain, JSON.parse(domainData).imgAddress);
+            }
+        },
   },
 
   setup() {
