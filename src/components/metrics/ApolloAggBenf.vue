@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import MetricImage from './MetricImage.vue'
 import {useAggBenfKI} from '../../apollo/useApolloHelpers'
 
 const response = ref([])
@@ -18,23 +19,13 @@ onMounted(async () => {
 })
 </script>
 
-<script lang="ts">
-  import { mapGetters } from 'vuex';
-
-  export default {
-    computed: {
-      ...mapGetters("klima", ["getKlimaTldAddress"]),
-    },
-  };
-</script>
-
 <template>
   <div class="response">
     <!--<code>{{ response }}</code>-->
-    <p>{{getKlimaTldAddress}}</p>
     <table class="table">
       <thead>
       <tr>
+        <th>Avatar</th>
         <th >Beneficiary</th>
         <th>Tonnes</th>
         <th>Retirements</th>
@@ -42,6 +33,7 @@ onMounted(async () => {
         </thead>
         <tbody v-if="props.mode=='MAX_COUNT'">
         <tr v-for="row in response">
+          <td><MetricImage :domain="row[2]" :key="row.id" /></td>
           <td> {{row[2]}} </td>
           <td> {{row[1]}} </td>
           <td> {{row[0]}} </td>
