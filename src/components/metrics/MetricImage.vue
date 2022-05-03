@@ -1,7 +1,7 @@
 <template>
 <!--<img src={{this.imageAddress}} />-->
-{{this.imageAddress}}
-{{this.testData}}
+{{imageAddress}}
+{{testData}}
 </template>
 
 <script lang="ts">
@@ -44,8 +44,9 @@ export default {
             const existingDomainLower = this.domain.toLowerCase();
             const existingDomainParts = existingDomainLower.split(".");
 
+            const fProvider = this.getFallbackProvider(137);
             const intfc = new ethers.utils.Interface(tldAbi);
-            const contract = new ethers.Contract(this.getKlimaTldAddress, intfc, this.signer);
+            const contract = new ethers.Contract(this.getKlimaTldAddress, intfc, fProvider);
 
             const name = existingDomainParts[0];
 
@@ -54,8 +55,6 @@ export default {
             //const userDefaultName = await contract.defaultNames(checkDomainHolder);
         
             if (existingDomainParts[0] && existingDomainParts[1]==".klima") {
-                const intfc = new ethers.utils.Interface(tldAbi);
-                const contract = new ethers.Contract(this.getKlimaTldAddress, intfc, this.signer);
 
                 const nameData = await contract.domains(name);
 
@@ -76,7 +75,7 @@ export default {
                         const pfpInterface = new ethers.utils.Interface([
                             "function tokenURI(uint256 tokenId) public view returns (string memory)"
                         ]);
-                        const pfpContract = new ethers.Contract(customData.imgAddress, pfpInterface, this.signer);
+                        const pfpContract = new ethers.Contract(customData.imgAddress, pfpInterface, fProvider);
                         metadata = await pfpContract.tokenURI(customData.imgTokenId);
                     }
 
