@@ -1,6 +1,6 @@
 <template>
-<!--<img src={{this.imageAddress}} />-->
-{{imageAddress}}
+<!--<img src={{imageAddress}} />-->
+<!--{{imageAddress}}-->
 {{testData}}
 </template>
 
