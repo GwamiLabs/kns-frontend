@@ -8,7 +8,6 @@
     <div class="col-md-9">
       <div>
         <h1>Biggest 24 hour periods for tonnes retired</h1>
-        <h1>{{meta.env.VITE_API_URL}}</h1>
         <ApolloAggTime :numPeriods="5"
                       :periodInSecs="86400"
                       :first="1"
