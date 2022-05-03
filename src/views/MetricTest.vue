@@ -8,7 +8,7 @@
     <div class="col-md-9">
       <div>
         <h1>Biggest 24 hour periods for tonnes retired</h1>
-        <ApolloAggTime :numPeriods="5"
+        <ApolloAggTime :numPeriods="1"
                       :periodInSecs="86400"
                       :first="1"
                       :skip="0"
