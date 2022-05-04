@@ -41,6 +41,7 @@ onMounted(async () => {
         </tbody>
         <tbody v-else>
         <tr v-for="row in response">
+          <td><MetricImage :domain="row[2]" :key="row.id" /></td>
           <td> {{row[2]}} </td>
           <td> {{row[0]}} </td>
           <td> {{row[1]}} </td>

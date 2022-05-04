@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import MetricImage from './MetricImage.vue'
 import { useGeneralKI } from '../../apollo/useApolloHelpers'
+
 
 const response = ref([])
 
@@ -30,6 +32,7 @@ onMounted(async () => {
         <thead>
         <tr>
           <!--<th v-for="header in tableheaders">{{header}}</th>-->
+          <th>Avatar</th>
           <th>Beneficiary</th>
           <th>Address</th>
           <th>Txn Hash</th>
@@ -41,6 +44,7 @@ onMounted(async () => {
         </thead>
         <tr v-for="row in response">
         <!--<td v-for="cell in Object.values(row)"> {{cell}} </td>-->
+        <td><MetricImage :domain="row.beneficiary" :key="row.id" /></td>
         <td>{{row.beneficiary}}</td>
         <td>{{row.beneficiaryAddress}}</td>
         <td>{{row.transaction.id}}</td>

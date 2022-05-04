@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-//import apolloClient from '../../apollo/client'
-//import { AGG_ADDR_KI } from '../../graphql'
+import MetricImage from './MetricImage.vue'
 import { useAggAddrKI } from '../../apollo/useApolloHelpers'
 
 const response = ref([])
@@ -26,6 +25,7 @@ onMounted(async () => {
     <table class="table">
       <thead>
       <tr>
+        <th>Avatar</th>
         <th >Address</th>
         <th>Tonnes</th>
         <th>Retirements</th>
@@ -33,6 +33,7 @@ onMounted(async () => {
         </thead>
         <tbody v-if="props.mode=='MAX_COUNT'">
         <tr v-for="row in response">
+          <td><MetricImage :domain="row[2]" :key="row.id" /></td>
           <td> {{row[2]}} </td>
           <td> {{row[1]}} </td>
           <td> {{row[0]}} </td>
@@ -40,6 +41,7 @@ onMounted(async () => {
         </tbody>
         <tbody v-else>
         <tr v-for="row in response">
+          <td><MetricImage :domain="row[2]" :key="row.id" /></td>
           <td> {{row[2]}} </td>
           <td> {{row[0]}} </td>
           <td> {{row[1]}} </td>

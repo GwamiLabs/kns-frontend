@@ -8,16 +8,16 @@
     <div class="col-md-9">
       <div>
         <h1>Biggest 24 hour periods for tonnes retired</h1>
-        <ApolloAggTime :numPeriods="5"
+        <ApolloAggTime :numPeriods="20"
                       :periodInSecs="86400"
-                      :first="1"
+                      :first="1000"
                       :skip="0"
                       mode="MAX_AMOUNT"
         />
       </div>
       <div>
         <h1>Biggest 24 hour periods for no. of retirements</h1>
-        <ApolloAggTime :numPeriods="5"
+        <ApolloAggTime :numPeriods="20"
                       :periodInSecs="86400"
                       :first="1000"
                       :skip="0"
@@ -25,66 +25,71 @@
         />
       </div>
       <div>
-        <h1>Top .Klima Domains (by Beneficiary Name) - Total Tonnes Retired</h1>
-        <!--<ApolloDotKlimaPics beneficiary=".klima" :numUsers="5"
-                      :first="1000"
-                      :skip="0" mode="MAX_AMOUNT" />-->
-      </div>  
-      <div>
-        <h1>Top General Users (by Beneficiary Name) - Total Tonnes Retired</h1>
-        <ApolloAggBenf beneficiary="" :numUsers="5"
+        <h1>Top 20 Retirers (by Beneficiary Name) - Total Tonnes Retired</h1>
+        <ApolloAggBenf beneficiary="" :numUsers="20"
                 :first="1000"
                 :skip="0" mode="MAX_AMOUNT" />
       </div>
       <div>
-        <h1>Top General Users (by Beneficiary Name) - No. of Times Retired</h1>
-        <ApolloAggBenf beneficiary="" :numUsers="5"
+        <h1>Top 20 Retirers (by Beneficiary Name) - No. of Times Retired</h1>
+        <ApolloAggBenf beneficiary="" :numUsers="20"
                 :first="1000"
                 :skip="0" mode="MAX_COUNT" />
       </div>
       <div>
-        <h1>Top General Users (by Beneficiary Address) - Total Tonnes Retired</h1>
-        <ApolloAggAddr address="" :numUsers="5" 
+        <h1>Top 20 Retirers (by Beneficiary Address) - Total Tonnes Retired</h1>
+        <ApolloAggAddr address="" :numUsers="20" 
                 :first="1000"
                 :skip="0" mode="MAX_AMOUNT" />
       </div>
       <div>
-        <h1>Top General Users (by Beneficiary Address) - No. of Times Retired</h1>
-        <ApolloAggAddr address="" :numUsers="5" 
+        <h1>Top 20 Retirers (via Beneficiary Address) - No. of Times Retired</h1>
+        <ApolloAggAddr address="" :numUsers="20" 
                 :first="1000"
                 :skip="0" mode="MAX_COUNT" />
       </div>
       <div>
-        <h1>Top Klima Users (by Beneficiary Name) - Total Tonnes Retired</h1>
-        <ApolloAggBenf beneficiary=".klima" :numUsers="10"
+        <h1>Top 20 .klima Retirers (via Beneficiary Name) - Total Tonnes Retired</h1>
+        <ApolloAggBenf beneficiary=".klima" :numUsers="20"
                 :first="1000"
                 :skip="0" mode="MAX_AMOUNT" />
       </div>
       <div>
-        <h1>Top Klima Users (by Beneficiary Name) - No. of Times Retired</h1>
-        <ApolloAggBenf beneficiary=".klima" :numUsers="10"
+        <h1>Top 20 .klima Retirers (via Beneficiary Name) - No. of Times Retired</h1>
+        <ApolloAggBenf beneficiary=".klima" :numUsers="20"
                 :first="1000"
                 :skip="0" mode="MAX_COUNT" />
       </div>
       <div>
-        <h1>Largest .klima Domain Retirements</h1>
+        <h1>Largest 20 .klima Domain Retirements</h1>
           <ApolloGenKI 
             beneficiary = ".klima"
             address = ""
-            :first = "1000"
+            :first = "20"
             :skip = "0"
             ordering = "amount"
             direction = "desc"
             />
       </div>
       <div>
-        <h1>Latest .klima Domain Retirements</h1>
+        <h1>Latest 20 .klima Domain Retirements</h1>
           <ApolloGenKI 
             beneficiary = ".klima"
             address = ""
-            :first = "1000"
+            :first = "20"
             :skip = "0"
             ordering = "timestamp"
+            direction = "desc"
+            />
+      </div>
+            <div>
+        <h1>Largest 20 retirements</h1>
+          <ApolloGenKI 
+            beneficiary = ""
+            address = ""
+            :first = "20"
+            :skip = "0"
+            ordering = "amount"
             direction = "desc"
             />
       </div>

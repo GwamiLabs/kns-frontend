@@ -1,7 +1,5 @@
 <template>
-<!--<img src={{imageAddress}} />-->
-<!--{{imageAddress}}-->
-{{testData}}
+<img :src="imgAddress" :width="width" :height="height" />
 </template>
 
 <script lang="ts">
@@ -16,59 +14,76 @@ import tlds from '../../abi/tlds.json';
 import tldAbi from '../../abi/PunkTLD.json';
 import erc20Abi from '../../abi/Erc20.json';
 import useChainHelpers from "../../hooks/useChainHelpers";
+import { ref, toRefs, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
 
     name: "MetricImage",
 
-    date(){
-        return {
-            imageAddress: null,
-            testData: null
-        }
-    },
-
     props:{
         domain: String,
+        height:{
+            type: String,
+            default: "100"
+        },
+        width:{
+            type: String,
+            default: "100"
+        }, 
     },
 
-    components:{},
+    setup(props) {
+    
+    const { domain } = toRefs(props);
+    
+    const { address, isActivated, signer } = useEthers();
+    const { getFallbackProvider } = useChainHelpers();
+    
+    const store = useStore();
+    const klimaTLDAddress = store.getters['klima/getKlimaTldAddress'];
+    
 
-    computed: {
-        ...mapGetters("user", ["getUserAddress", "getUserBalance", "getUserAllDomainNames", "getUserSelectedNameData"]),
-        ...mapGetters("klima", ["getKlimaTldAddress"]),
-    },
-
-    methods: {
-        async getDomainPicture(){
-            const existingDomainLower = this.domain.toLowerCase();
+    const imgAddress = ref(
+        "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg");
+    //NOTE we may want more props than just the domain.
+    async function getDomainPicture(domain){
+            //console.log("In getDomainPicture()");
+            const existingDomainLower = domain.toLowerCase();
             const existingDomainParts = existingDomainLower.split(".");
 
-            const fProvider = this.getFallbackProvider(137);
+            const fProvider = getFallbackProvider(137);
             const intfc = new ethers.utils.Interface(tldAbi);
-            const contract = new ethers.Contract(this.getKlimaTldAddress, intfc, fProvider);
+            const contract = new ethers.Contract(klimaTLDAddress, intfc, fProvider);
 
-            const name = existingDomainParts[0];
-
-            const checkDomainHolder = await contract.getDomainHolder(name);
+            //console.log( await contract.symbol());
             
+            const name = existingDomainParts[0];
+            
+            // const checkDomainHolder = await contract.getDomainHolder(name);
+            // console.log(await checkDomainHolder);
+            // console.log("Check part 1...", 
+            //             existingDomainParts[0],
+            //             "...check part 2...",
+            //             existingDomainParts[1]);
             //const userDefaultName = await contract.defaultNames(checkDomainHolder);
         
-            if (existingDomainParts[0] && existingDomainParts[1]==".klima") {
-
+            if (existingDomainParts[0] && existingDomainParts[1]=="klima") {
+                console.log("In first if check");
                 const nameData = await contract.domains(name);
-
-                this.testData = nameData;
-
+                //console.log(nameData);
+                
                 // get contract image for that token ID
                 let metadata = await contract.tokenURI(nameData.tokenId);
                 let imgFound = false;
 
                 if (nameData.data) {
+                    
                     const customData = JSON.parse(nameData.data);
                 
                     if (customData.imgAddress && !customData.imgAddress.startsWith("0x")) {
-                        this.imageAddress = customData.imgAddress.replace("ipfs://", "https://ipfs.io/ipfs/");
+                        console.log("2, ", customData.imgAddress.replace("ipfs://", "https://ipfs.io/ipfs/"));
+                        imgAddress.value = customData.imgAddress.replace("ipfs://", "https://ipfs.io/ipfs/");
                         imgFound = true;
                     } else if (customData.imgAddress) {
                         // fetch image URL of that PFP
@@ -88,44 +103,39 @@ export default {
                         const result = await response.json();
 
                         if (result && result.image) {
-                            this.imageAddress = result.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+                            imgAddress.value = result.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+                            console.log("3 ", result.image.replace("ipfs://", "https://ipfs.io/ipfs/"));
                             imgFound = true;
                         }
                     }
                 }
 
                 if (metadata && !imgFound) {
+                    console.log("checking metadata...", metadata);
                     const json = atob(metadata.substring(29));
                     const result = JSON.parse(json);
+                    console.log(result);
 
                     if (result && result.image) {
-                        this.imageAddress = result.image;
+                        imgAddress.value = result.image;
+                        console.log("4, ", result.image);
+
                     }
                 }
             }
         }
 
-    },
+    onMounted(async()=>{
+        await getDomainPicture(domain.value);
+    })
 
-    setup() {
-    const { address, isActivated, signer } = useEthers();
-    const toast = useToast();
-
-    const { getFallbackProvider } = useChainHelpers();
 
     return {
-            address, 
-            getFallbackProvider, 
-            isActivated, 
-            signer, 
-            toast }
+            imgAddress,
+            address,
+            getFallbackProvider}
   },
-  
-  onMounted(){
-      
-      this.getDomainPicture();
 
-  }
 
 }
 </script>
