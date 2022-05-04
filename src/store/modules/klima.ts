@@ -14,7 +14,7 @@ export default {
     klimaTldName: ".klima",
     tldAddress: "0xe8b97542A433e7eCc7bB791872af04DF02A1a6E4",
     tldContract: null,
-    wrapperAddress: "0xf7E89ED8106cBa1335e04837E59a28ae1A3D580c",
+    wrapperAddress: "0xE2D6d035dE8647C5849ab73e0996f2068ED7AB04",
     wrapperContract: null,
     wrapperPaused: true,
     wrapperTldPrice: null
