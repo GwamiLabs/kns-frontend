@@ -33,7 +33,7 @@ app.use(router)
 app.use(store)
 
 app.use(VueDapp, {
-  infuraId: '',
+  infuraId: 'smth', // key not needed, but must not be empty either for wallet connect to work
 })
 
 app.use(Toast, options);
