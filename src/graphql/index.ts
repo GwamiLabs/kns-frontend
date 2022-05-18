@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core'
+import { gql } from 'graphql-tag'
 
 const GEN_KI = gql`
 query gen_KI($beneficiary:String! $address:String! $first:Int! $skip:Int! $ordering:String! $direction:String! ){

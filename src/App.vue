@@ -11,7 +11,8 @@
 </template>
 
 <script lang="ts">
-import { onMounted } from "vue";
+import { onMounted, provide } from "vue";
+import { DefaultApolloClient } from '@vue/apollo-composable';
 import { ethers } from 'ethers';
 import { useEthers, useWallet } from 'vue-dapp';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
@@ -20,6 +21,7 @@ import Footer from './components/Footer.vue';
 import tldsJson from './abi/tlds.json';
 import tldAbi from './abi/PunkTLD.json';
 import useChainHelpers from "./hooks/useChainHelpers";
+import apolloClient from "./apollo/client";
 
 export default {
   components: {
@@ -97,6 +99,8 @@ export default {
     const { address, chainId, isActivated } = useEthers();
     const { connect } = useWallet();
     const { getFallbackProvider } = useChainHelpers();
+
+    provide(DefaultApolloClient, apolloClient)
 
     onMounted(() => {
       // if user already connected via MetaMask before, connect them automatically on the next visit

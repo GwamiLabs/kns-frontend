@@ -65,7 +65,7 @@
           <ApolloGenKI 
             beneficiary = ".klima"
             address = ""
-            :first = "20"
+            :first = "1000"
             :skip = "0"
             ordering = "amount"
             direction = "desc"
@@ -76,7 +76,7 @@
           <ApolloGenKI 
             beneficiary = ".klima"
             address = ""
-            :first = "20"
+            :first = "1000"
             :skip = "0"
             ordering = "timestamp"
             direction = "desc"
@@ -87,7 +87,7 @@
           <ApolloGenKI 
             beneficiary = ""
             address = ""
-            :first = "20"
+            :first = "1000"
             :skip = "0"
             ordering = "amount"
             direction = "desc"

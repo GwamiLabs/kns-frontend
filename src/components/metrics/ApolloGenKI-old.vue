@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import MetricImage from './MetricImage.vue'
-import { useQuery, useResult } from '@vue/apollo-composable'
-import { GEN_KI } from '../../graphql'
-//import { useGeneralKI } from '../../apollo/useApolloHelpers'
+import { useGeneralKI } from '../../apollo/useApolloHelpers'
+
+
+const response = ref([])
 
 const props = defineProps({
   beneficiary: String,
@@ -14,23 +15,14 @@ const props = defineProps({
   direction: String
 })
 
-const { result, loading, error } = useQuery(
-  GEN_KI,
-  {
-    beneficiary:props.beneficiary,
-    address:props.address,
-    first: props.first,
-    skip: props.skip,
-    ordering: props.ordering,
-    direction:props.direction
-  }//if we want to make this responsive wrap this sec in a lambda fn
-)
-
-const klimaRetires = useResult(result)
-
-
-
-
+onMounted(async () => {
+  response.value = await useGeneralKI(props.beneficiary,
+                                      props.address,
+                                      props.first,
+                                      props.skip,
+                                      props.ordering,
+                                      props.direction)
+})
 </script>
 
 <template>
@@ -50,7 +42,7 @@ const klimaRetires = useResult(result)
           <th>Project ID</th>
         </tr>
         </thead>
-        <tr v-for="row in klimaRetires">
+        <tr v-for="row in response">
         <!--<td v-for="cell in Object.values(row)"> {{cell}} </td>-->
         <td><MetricImage :domain="row.beneficiary" :key="row.id" /></td>
         <td>{{row.beneficiary}}</td>
