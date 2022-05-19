@@ -46,6 +46,15 @@ const klimaRetires = useResult(result)
           <th>Txn Hash</th>
           <th>Timestamp</th>
           <th>Tonnes</th>
+          <th>AddressTonnes</th>
+          <th>addressTimes</th>
+          <th>beneficiaryTonnes</th>
+          <th>beneficiaryTonnes</th>
+          <th>projectName</th>
+          <th>addressProjectTonnes</th>
+          <th>addressProjectTimes</th>
+          <th>benfProjectTonnes</th>
+          <th>benfProjectTimes</th>   
           <th>Bridge</th>
           <th>Project ID</th>
         </tr>
@@ -58,6 +67,15 @@ const klimaRetires = useResult(result)
         <td>{{row.transaction.id}}</td>
         <td>{{row.timestamp}}</td>
         <td>{{row.amount}}</td>
+        <td>{{row.addressTonnes}}</td>
+        <td>{{row.addressTimes}}</td>
+        <td>{{row.beneficiaryTonnes}}</td>
+        <td>{{row.beneficiaryTonnes}}</td>
+        <td>{{row.projectName}}</td>
+        <td>{{row.addressProjectTonnes}}</td>
+        <td>{{row.addressProjectTimes}}</td>
+        <td>{{row.benfProjectTonnes}}</td>
+        <td>{{row.benfProjectTimes}}</td> 
         <td>{{row.offset.bridge}}</td>
         <td>{{row.offset.projectID}}</td>
         </tr>

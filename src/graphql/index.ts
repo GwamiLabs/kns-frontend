@@ -25,6 +25,15 @@ query gen_KI($beneficiary:String! $address:String! $first:Int! $skip:Int! $order
       name
       bridge
     }
+    addressTonnes @client
+    addressTimes @client
+    beneficiaryTonnes @client
+    beneficiaryTonnes @client
+    projectName @client
+    addressProjectTonnes @client
+    addressProjectTimes @client
+    benfProjectTonnes @client
+    benfProjectTimes @client    
   }
 }
 `
