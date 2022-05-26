@@ -1,5 +1,4 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
-import { gql } from 'graphql-tag'
 import projectsByID from "../abi/projectsByID.json"
 
 // HTTP connection to the API
@@ -267,7 +266,7 @@ const customCache = new InMemoryCache({
 })
 
 // Cache implementation
-const cache = new InMemoryCache()
+//const cache = new InMemoryCache()
 
 // Create the apollo client
 const apolloClient = new ApolloClient({

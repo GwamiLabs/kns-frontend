@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import MetricImage from './MetricImage.vue'
-import { useQuery, useResult } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 import { GEN_KI } from '../../graphql'
-//import { useGeneralKI } from '../../apollo/useApolloHelpers'
 
 const props = defineProps({
   beneficiary: String,
@@ -14,8 +13,8 @@ const props = defineProps({
   direction: String
 })
 
-const { result, loading, error } = useQuery(
-  GEN_KI,
+const { result, loading, error, fetchMore } = useQuery(
+  GEN_KI,()=>(
   {
     beneficiary:props.beneficiary,
     address:props.address,
@@ -24,11 +23,27 @@ const { result, loading, error } = useQuery(
     ordering: props.ordering,
     direction:props.direction
   }//if we want to make this responsive wrap this sec in a lambda fn
+  )
+  ,{
+    fetchPolicy: 'cache-first',
+    pollInterval: 60000,
+  }
 )
 
-const klimaRetires = useResult(result)
+function loadMore (){
+  fetchMore({
+    variables:{
+      skip: result.value.klimaRetires.length,
+    },
+  })
+}
 
 
+const klimaRetires = computed(() => result.value?.klimaRetires?? [])
+
+if (klimaRetires.value.length == props.first){
+  loadMore()
+}
 
 
 </script>

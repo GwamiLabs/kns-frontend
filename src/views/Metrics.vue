@@ -65,7 +65,7 @@
           <ApolloGenKI 
             beneficiary = ".klima"
             address = ""
-            :first = "1000"
+            :first = "10"
             :skip = "0"
             ordering = "amount"
             direction = "desc"
