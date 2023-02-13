@@ -36,8 +36,8 @@ export default function useChainHelpers() {
       if (networkId === 137) {
         // Polygon PoS Chain
         urls = [
-          "https://polygon-rpc.com/", 
-          "https://polygon-mainnet.g.alchemy.com/v2/" + import.meta.env.VITE_ALCHEMY_POLYGON_KEY
+          "https://1rpc.io/matic",
+          "https://polygon-rpc.com/"
         ];
       } else if (networkId === 80001) {
         // Mumbai testnet (Polygon testnet)
@@ -48,7 +48,7 @@ export default function useChainHelpers() {
       } else if (networkId === 10) {
         // Optimism
         urls = [
-          "https://mainnet.optimism.io"
+          "https://1rpc.io/op"
         ]; 
       } else if (networkId === 100) {
         // Gnosis Chain
@@ -59,7 +59,7 @@ export default function useChainHelpers() {
       } else if (networkId === 42161) {
         // Arbitrum
         urls = [
-          "https://arb1.arbitrum.io/rpc"
+          "https://1rpc.io/arb"
         ];
       } 
 
@@ -133,7 +133,7 @@ export default function useChainHelpers() {
         chainId: "0x89",
         chainName: "Polygon PoS Chain",
         nativeCurrency: { decimals: 18, name: "MATIC", symbol: "MATIC" }, 
-        rpcUrls: ["https://polygon-rpc.com/"]
+        rpcUrls: ["https://1rpc.io/matic"]
       }] 
     } else if (networkName == "Gnosis Testnet") {
       method = "wallet_addEthereumChain"
